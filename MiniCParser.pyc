@@ -1,21 +1,0 @@
-o
-
-    6Le  ã                   @   st   d dl mZ d dlmZ dd„ Zdd„ Zdd„ Zd	d
-„ Zdd„ Zd
-d„ Z	dd„ Z
-dd„ Zdd„ Zdd„ Z
-e ¡ ZdS )é    N)Útokensc                 C   s   d| d gd| d g| d< dS )zstmt : ID ASSIGN expr SEMIÚidé   ú=é   r   N© ©Úpr   r   úMiniCParser.pyÚp_stmt_1   s   r   c                 C   ó   | d | d< dS )zstmt : LBRACE stmtlist RBRACEé   r   Nr   r   r   r   r
-   Úp_stmt_2   ó   r   c                 C   ó   d| d | d g| d< dS )z!stmt : IF LPAREN expr RPAREN stmtÚifr   é   r   Nr   r   r   r   r
-   Úp_stmt_3   ó   r   c                 C   r   )z$stmt : WHILE LPAREN expr RPAREN stmtÚwhiler   r   r   Nr   r   r   r   r
-   Úp_stmt_4   r   r   c                 C   r   )zstmtlist : stmtr   r   Nr   r   r   r   r
-   Úp_stmtlist_1   r   r   c                 C   s   | d | d g| d< dS )zstmtlist : stmtlist stmtr   r
-   r   Nr   r   r   r   r
-   Úp_stmtlist_2   s   r   c                 C   ó   d| d g| d< dS )z	expr : IDr   r   r   Nr   r   r   r   r
-   Úp_expr_1   ó   r   c                 C   r   )z
-expr : NUMZnumr   r   Nr   r   r   r   r
-   Úp_expr_2    r   r   c                 C   s"   | d d| d g| d g| d< dS )zexpr : expr OPTR exprr   Zoptrr
-   r   r   Nr   r   r   r   r
-   Úp_expr_3$   s   "r   c                 C   s   t dƒ d S )NzSyntax error in input!)Úprintr   r   r   r
-   Úp_error)   s   r   )Zply.yaccZyaccZ
-MiniCLexerr   r   r   r   r   r   r   r   r   r   r   Úparserr   r   r   r
-   Ú<module>   s    

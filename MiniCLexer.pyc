@@ -1,8 +1,0 @@
-o
-6Lej�@s~ddlmZddd�Zgd�ee���ZdZdZdZd	Z	d
-Z
-dZdZdZdd�Zdd�Zdd�ZdZdZdd�Ze��ZdS)�NZIFZWHILE)�if�while)	�LBRACE�RBRACEZLPARENZRPARENZASSIGN�SEMI�ID�NUM�OPTRz\{z\}z\(z\)�=�;z[iI][fF]z[wW][hH][iI][lL][eE]cCst�|j��d�|_|S)z[a-zA-Z][_a-zA-Z0-9]*r)�reserved�get�value�lower�type��t�r�MiniCLexer.py�t_IDsrcCst|j�|_d|_|S)z[+-]?[0-9]+(\.[0-9]*)?r)�floatrrrrrr�t_NUM$srcCs
-d|_|S)z(>=|<=|==|>|<|\+|\-|\*|/)r	)rrrrr�t_OPTR*srz 
-	z//.*cCstd|jd�td��)NzIllegal character '%s'rzLEXER ERROR)�printr�	Exceptionrrrr�t_error4sr)Zply.lexZlexr�list�values�tokensZt_LBRACEZt_RBRACEZt_LPARENZt_RPARENZt_ASSIGNZt_SEMIZt_IFZt_WHILErrrZt_ignoreZt_ignore_COMMENTrZlexerrrrr�<module>s,�
-
-�

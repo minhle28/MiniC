@@ -59,7 +59,11 @@ def p_expr_optr(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    if p:
+        print(f"Syntax error at token '{p.value}' on line {p.lineno}")
+    else:
+        print("Syntax error: unexpected end of input")
+
 
 # Build the parser
 parser = yacc.yacc()

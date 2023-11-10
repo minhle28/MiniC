@@ -24,7 +24,7 @@ t_ASSIGN = r'='
 t_SEMI = r';'
 t_IF = r'if'
 t_WHILE = r'while'
-t_OPTR = r'>=|<=|==|>|<|\+|\-|\*|/'
+t_OPTR = r'>=|<=|==|>|<|\+|\-|\*'
 
 # Define a rule for ID token
 def t_ID(t):
