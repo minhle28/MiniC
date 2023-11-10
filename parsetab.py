@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ASSIGN ID IF LBRACE LPAREN NUM OPTR RBRACE RPAREN SEMI WHILEprogram : stmtlistexpr : NUMexpr : IDstmt : LBRACE stmtlist RBRACEstmt : IF LPAREN expr RPAREN stmtstmt : WHILE LPAREN expr RPAREN stmtstmtlist : stmtstmtlist : stmtlist stmtstmt : ID ASSIGN expr SEMI\n            | ID ASSIGN NUM SEMIexpr : expr OPTR expr'
+_lr_signature = 'ASSIGN ID IF LBRACE LPAREN NUM OPTR RBRACE RPAREN SEMI WHILEprogram : stmtliststmt : LBRACE stmtlist RBRACEstmt : IF LPAREN expr RPAREN stmtstmt : WHILE LPAREN expr RPAREN stmtstmtlist : stmtstmtlist : stmtlist stmtexpr : IDexpr : NUMstmt : ID ASSIGN expr SEMIstmt : ID ASSIGN NUM SEMIexpr : expr OPTR expr'
     
-_lr_action_items = {'LBRACE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[4,4,-7,4,-8,4,-4,4,4,-9,-10,-5,-6,]),'IF':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[5,5,-7,5,-8,5,-4,5,5,-9,-10,-5,-6,]),'WHILE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[6,6,-7,6,-8,6,-4,6,6,-9,-10,-5,-6,]),'ID':([0,2,3,4,8,9,10,11,12,13,20,21,22,23,24,25,27,],[7,7,-7,7,-8,7,16,16,16,-4,7,16,7,-9,-10,-5,-6,]),'$end':([1,2,3,8,13,23,24,25,27,],[0,-1,-7,-8,-4,-9,-10,-5,-6,]),'RBRACE':([3,8,9,13,23,24,25,27,],[-7,-8,13,-4,-9,-10,-5,-6,]),'LPAREN':([5,6,],[10,11,]),'ASSIGN':([7,],[12,]),'NUM':([10,11,12,21,],[15,15,19,15,]),'RPAREN':([14,15,16,17,26,],[20,-2,-3,22,-11,]),'OPTR':([14,15,16,17,18,19,26,],[21,-2,-3,21,21,-2,21,]),'SEMI':([15,16,18,19,26,],[-2,-3,23,24,-11,]),}
+_lr_action_items = {'LBRACE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[4,4,-5,4,-6,4,-2,4,4,-9,-10,-3,-4,]),'IF':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[5,5,-5,5,-6,5,-2,5,5,-9,-10,-3,-4,]),'WHILE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[6,6,-5,6,-6,6,-2,6,6,-9,-10,-3,-4,]),'ID':([0,2,3,4,8,9,10,11,12,13,20,21,22,23,24,25,27,],[7,7,-5,7,-6,7,15,15,15,-2,7,15,7,-9,-10,-3,-4,]),'$end':([1,2,3,8,13,23,24,25,27,],[0,-1,-5,-6,-2,-9,-10,-3,-4,]),'RBRACE':([3,8,9,13,23,24,25,27,],[-5,-6,13,-2,-9,-10,-3,-4,]),'LPAREN':([5,6,],[10,11,]),'ASSIGN':([7,],[12,]),'NUM':([10,11,12,21,],[16,16,19,16,]),'RPAREN':([14,15,16,17,26,],[20,-7,-8,22,-11,]),'OPTR':([14,15,16,17,18,19,26,],[21,-7,-8,21,21,-8,21,]),'SEMI':([15,16,18,19,26,],[-7,-8,23,24,-11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -28,14 +28,14 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
   ('program -> stmtlist','program',1,'p_program','MiniCParser.py',6),
-  ('expr -> NUM','expr',1,'p_expr_num','MiniCParser.py',10),
-  ('expr -> ID','expr',1,'p_expr_id','MiniCParser.py',14),
-  ('stmt -> LBRACE stmtlist RBRACE','stmt',3,'p_stmt_block','MiniCParser.py',18),
-  ('stmt -> IF LPAREN expr RPAREN stmt','stmt',5,'p_stmt_if','MiniCParser.py',22),
-  ('stmt -> WHILE LPAREN expr RPAREN stmt','stmt',5,'p_stmt_while','MiniCParser.py',26),
-  ('stmtlist -> stmt','stmtlist',1,'p_stmtlist_single','MiniCParser.py',30),
-  ('stmtlist -> stmtlist stmt','stmtlist',2,'p_stmtlist_multiple','MiniCParser.py',34),
-  ('stmt -> ID ASSIGN expr SEMI','stmt',4,'p_stmt_expr_semi','MiniCParser.py',38),
-  ('stmt -> ID ASSIGN NUM SEMI','stmt',4,'p_stmt_expr_semi','MiniCParser.py',39),
-  ('expr -> expr OPTR expr','expr',3,'p_expr_optr','MiniCParser.py',43),
+  ('stmt -> LBRACE stmtlist RBRACE','stmt',3,'p_stmt_block','MiniCParser.py',11),
+  ('stmt -> IF LPAREN expr RPAREN stmt','stmt',5,'p_stmt_if','MiniCParser.py',16),
+  ('stmt -> WHILE LPAREN expr RPAREN stmt','stmt',5,'p_stmt_while','MiniCParser.py',21),
+  ('stmtlist -> stmt','stmtlist',1,'p_stmtlist_single','MiniCParser.py',26),
+  ('stmtlist -> stmtlist stmt','stmtlist',2,'p_stmtlist_multiple','MiniCParser.py',31),
+  ('expr -> ID','expr',1,'p_expr_id','MiniCParser.py',36),
+  ('expr -> NUM','expr',1,'p_expr_num','MiniCParser.py',41),
+  ('stmt -> ID ASSIGN expr SEMI','stmt',4,'p_stmt_expr_semi_assign','MiniCParser.py',46),
+  ('stmt -> ID ASSIGN NUM SEMI','stmt',4,'p_stmt_expr_semi_num','MiniCParser.py',51),
+  ('expr -> expr OPTR expr','expr',3,'p_expr_optr','MiniCParser.py',56),
 ]

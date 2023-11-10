@@ -4,13 +4,13 @@ Grammar
 
 Rule 0     S' -> program
 Rule 1     program -> stmtlist
-Rule 2     expr -> NUM
-Rule 3     expr -> ID
-Rule 4     stmt -> LBRACE stmtlist RBRACE
-Rule 5     stmt -> IF LPAREN expr RPAREN stmt
-Rule 6     stmt -> WHILE LPAREN expr RPAREN stmt
-Rule 7     stmtlist -> stmt
-Rule 8     stmtlist -> stmtlist stmt
+Rule 2     stmt -> LBRACE stmtlist RBRACE
+Rule 3     stmt -> IF LPAREN expr RPAREN stmt
+Rule 4     stmt -> WHILE LPAREN expr RPAREN stmt
+Rule 5     stmtlist -> stmt
+Rule 6     stmtlist -> stmtlist stmt
+Rule 7     expr -> ID
+Rule 8     expr -> NUM
 Rule 9     stmt -> ID ASSIGN expr SEMI
 Rule 10    stmt -> ID ASSIGN NUM SEMI
 Rule 11    expr -> expr OPTR expr
@@ -18,24 +18,24 @@ Rule 11    expr -> expr OPTR expr
 Terminals, with rules where they appear
 
 ASSIGN               : 9 10
-ID                   : 3 9 10
-IF                   : 5
-LBRACE               : 4
-LPAREN               : 5 6
-NUM                  : 2 10
+ID                   : 7 9 10
+IF                   : 3
+LBRACE               : 2
+LPAREN               : 3 4
+NUM                  : 8 10
 OPTR                 : 11
-RBRACE               : 4
-RPAREN               : 5 6
+RBRACE               : 2
+RPAREN               : 3 4
 SEMI                 : 9 10
-WHILE                : 6
+WHILE                : 4
 error                : 
 
 Nonterminals, with rules where they appear
 
-expr                 : 5 6 9 11 11
+expr                 : 3 4 9 11 11
 program              : 0
-stmt                 : 5 6 7 8
-stmtlist             : 1 4 8
+stmt                 : 3 4 5 6
+stmtlist             : 1 2 6
 
 Parsing method: LALR
 
@@ -43,11 +43,11 @@ state 0
 
     (0) S' -> . program
     (1) program -> . stmtlist
-    (7) stmtlist -> . stmt
-    (8) stmtlist -> . stmtlist stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (5) stmtlist -> . stmt
+    (6) stmtlist -> . stmtlist stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -69,10 +69,10 @@ state 1
 state 2
 
     (1) program -> stmtlist .
-    (8) stmtlist -> stmtlist . stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (6) stmtlist -> stmtlist . stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -86,24 +86,24 @@ state 2
 
 state 3
 
-    (7) stmtlist -> stmt .
+    (5) stmtlist -> stmt .
 
-    LBRACE          reduce using rule 7 (stmtlist -> stmt .)
-    IF              reduce using rule 7 (stmtlist -> stmt .)
-    WHILE           reduce using rule 7 (stmtlist -> stmt .)
-    ID              reduce using rule 7 (stmtlist -> stmt .)
-    $end            reduce using rule 7 (stmtlist -> stmt .)
-    RBRACE          reduce using rule 7 (stmtlist -> stmt .)
+    LBRACE          reduce using rule 5 (stmtlist -> stmt .)
+    IF              reduce using rule 5 (stmtlist -> stmt .)
+    WHILE           reduce using rule 5 (stmtlist -> stmt .)
+    ID              reduce using rule 5 (stmtlist -> stmt .)
+    $end            reduce using rule 5 (stmtlist -> stmt .)
+    RBRACE          reduce using rule 5 (stmtlist -> stmt .)
 
 
 state 4
 
-    (4) stmt -> LBRACE . stmtlist RBRACE
-    (7) stmtlist -> . stmt
-    (8) stmtlist -> . stmtlist stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (2) stmt -> LBRACE . stmtlist RBRACE
+    (5) stmtlist -> . stmt
+    (6) stmtlist -> . stmtlist stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -117,14 +117,14 @@ state 4
 
 state 5
 
-    (5) stmt -> IF . LPAREN expr RPAREN stmt
+    (3) stmt -> IF . LPAREN expr RPAREN stmt
 
     LPAREN          shift and go to state 10
 
 
 state 6
 
-    (6) stmt -> WHILE . LPAREN expr RPAREN stmt
+    (4) stmt -> WHILE . LPAREN expr RPAREN stmt
 
     LPAREN          shift and go to state 11
 
@@ -139,23 +139,23 @@ state 7
 
 state 8
 
-    (8) stmtlist -> stmtlist stmt .
+    (6) stmtlist -> stmtlist stmt .
 
-    LBRACE          reduce using rule 8 (stmtlist -> stmtlist stmt .)
-    IF              reduce using rule 8 (stmtlist -> stmtlist stmt .)
-    WHILE           reduce using rule 8 (stmtlist -> stmtlist stmt .)
-    ID              reduce using rule 8 (stmtlist -> stmtlist stmt .)
-    $end            reduce using rule 8 (stmtlist -> stmtlist stmt .)
-    RBRACE          reduce using rule 8 (stmtlist -> stmtlist stmt .)
+    LBRACE          reduce using rule 6 (stmtlist -> stmtlist stmt .)
+    IF              reduce using rule 6 (stmtlist -> stmtlist stmt .)
+    WHILE           reduce using rule 6 (stmtlist -> stmtlist stmt .)
+    ID              reduce using rule 6 (stmtlist -> stmtlist stmt .)
+    $end            reduce using rule 6 (stmtlist -> stmtlist stmt .)
+    RBRACE          reduce using rule 6 (stmtlist -> stmtlist stmt .)
 
 
 state 9
 
-    (4) stmt -> LBRACE stmtlist . RBRACE
-    (8) stmtlist -> stmtlist . stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (2) stmt -> LBRACE stmtlist . RBRACE
+    (6) stmtlist -> stmtlist . stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -169,25 +169,25 @@ state 9
 
 state 10
 
-    (5) stmt -> IF LPAREN . expr RPAREN stmt
-    (2) expr -> . NUM
-    (3) expr -> . ID
+    (3) stmt -> IF LPAREN . expr RPAREN stmt
+    (7) expr -> . ID
+    (8) expr -> . NUM
     (11) expr -> . expr OPTR expr
 
-    NUM             shift and go to state 15
-    ID              shift and go to state 16
+    ID              shift and go to state 15
+    NUM             shift and go to state 16
 
     expr                           shift and go to state 14
 
 state 11
 
-    (6) stmt -> WHILE LPAREN . expr RPAREN stmt
-    (2) expr -> . NUM
-    (3) expr -> . ID
+    (4) stmt -> WHILE LPAREN . expr RPAREN stmt
+    (7) expr -> . ID
+    (8) expr -> . NUM
     (11) expr -> . expr OPTR expr
 
-    NUM             shift and go to state 15
-    ID              shift and go to state 16
+    ID              shift and go to state 15
+    NUM             shift and go to state 16
 
     expr                           shift and go to state 17
 
@@ -195,30 +195,30 @@ state 12
 
     (9) stmt -> ID ASSIGN . expr SEMI
     (10) stmt -> ID ASSIGN . NUM SEMI
-    (2) expr -> . NUM
-    (3) expr -> . ID
+    (7) expr -> . ID
+    (8) expr -> . NUM
     (11) expr -> . expr OPTR expr
 
     NUM             shift and go to state 19
-    ID              shift and go to state 16
+    ID              shift and go to state 15
 
     expr                           shift and go to state 18
 
 state 13
 
-    (4) stmt -> LBRACE stmtlist RBRACE .
+    (2) stmt -> LBRACE stmtlist RBRACE .
 
-    LBRACE          reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
-    IF              reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
-    WHILE           reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
-    ID              reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
-    $end            reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
-    RBRACE          reduce using rule 4 (stmt -> LBRACE stmtlist RBRACE .)
+    LBRACE          reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
+    IF              reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
+    WHILE           reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
+    ID              reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
+    $end            reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
+    RBRACE          reduce using rule 2 (stmt -> LBRACE stmtlist RBRACE .)
 
 
 state 14
 
-    (5) stmt -> IF LPAREN expr . RPAREN stmt
+    (3) stmt -> IF LPAREN expr . RPAREN stmt
     (11) expr -> expr . OPTR expr
 
     RPAREN          shift and go to state 20
@@ -227,25 +227,25 @@ state 14
 
 state 15
 
-    (2) expr -> NUM .
+    (7) expr -> ID .
 
-    RPAREN          reduce using rule 2 (expr -> NUM .)
-    OPTR            reduce using rule 2 (expr -> NUM .)
-    SEMI            reduce using rule 2 (expr -> NUM .)
+    RPAREN          reduce using rule 7 (expr -> ID .)
+    OPTR            reduce using rule 7 (expr -> ID .)
+    SEMI            reduce using rule 7 (expr -> ID .)
 
 
 state 16
 
-    (3) expr -> ID .
+    (8) expr -> NUM .
 
-    RPAREN          reduce using rule 3 (expr -> ID .)
-    OPTR            reduce using rule 3 (expr -> ID .)
-    SEMI            reduce using rule 3 (expr -> ID .)
+    RPAREN          reduce using rule 8 (expr -> NUM .)
+    OPTR            reduce using rule 8 (expr -> NUM .)
+    SEMI            reduce using rule 8 (expr -> NUM .)
 
 
 state 17
 
-    (6) stmt -> WHILE LPAREN expr . RPAREN stmt
+    (4) stmt -> WHILE LPAREN expr . RPAREN stmt
     (11) expr -> expr . OPTR expr
 
     RPAREN          shift and go to state 22
@@ -264,21 +264,21 @@ state 18
 state 19
 
     (10) stmt -> ID ASSIGN NUM . SEMI
-    (2) expr -> NUM .
+    (8) expr -> NUM .
 
   ! shift/reduce conflict for SEMI resolved as shift
     SEMI            shift and go to state 24
-    OPTR            reduce using rule 2 (expr -> NUM .)
+    OPTR            reduce using rule 8 (expr -> NUM .)
 
-  ! SEMI            [ reduce using rule 2 (expr -> NUM .) ]
+  ! SEMI            [ reduce using rule 8 (expr -> NUM .) ]
 
 
 state 20
 
-    (5) stmt -> IF LPAREN expr RPAREN . stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (3) stmt -> IF LPAREN expr RPAREN . stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -292,21 +292,21 @@ state 20
 state 21
 
     (11) expr -> expr OPTR . expr
-    (2) expr -> . NUM
-    (3) expr -> . ID
+    (7) expr -> . ID
+    (8) expr -> . NUM
     (11) expr -> . expr OPTR expr
 
-    NUM             shift and go to state 15
-    ID              shift and go to state 16
+    ID              shift and go to state 15
+    NUM             shift and go to state 16
 
     expr                           shift and go to state 26
 
 state 22
 
-    (6) stmt -> WHILE LPAREN expr RPAREN . stmt
-    (4) stmt -> . LBRACE stmtlist RBRACE
-    (5) stmt -> . IF LPAREN expr RPAREN stmt
-    (6) stmt -> . WHILE LPAREN expr RPAREN stmt
+    (4) stmt -> WHILE LPAREN expr RPAREN . stmt
+    (2) stmt -> . LBRACE stmtlist RBRACE
+    (3) stmt -> . IF LPAREN expr RPAREN stmt
+    (4) stmt -> . WHILE LPAREN expr RPAREN stmt
     (9) stmt -> . ID ASSIGN expr SEMI
     (10) stmt -> . ID ASSIGN NUM SEMI
 
@@ -343,14 +343,14 @@ state 24
 
 state 25
 
-    (5) stmt -> IF LPAREN expr RPAREN stmt .
+    (3) stmt -> IF LPAREN expr RPAREN stmt .
 
-    LBRACE          reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
-    IF              reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
-    WHILE           reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
-    ID              reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
-    $end            reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
-    RBRACE          reduce using rule 5 (stmt -> IF LPAREN expr RPAREN stmt .)
+    LBRACE          reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
+    IF              reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
+    WHILE           reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
+    ID              reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
+    $end            reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
+    RBRACE          reduce using rule 3 (stmt -> IF LPAREN expr RPAREN stmt .)
 
 
 state 26
@@ -368,14 +368,14 @@ state 26
 
 state 27
 
-    (6) stmt -> WHILE LPAREN expr RPAREN stmt .
+    (4) stmt -> WHILE LPAREN expr RPAREN stmt .
 
-    LBRACE          reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
-    IF              reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
-    WHILE           reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
-    ID              reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
-    $end            reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
-    RBRACE          reduce using rule 6 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    LBRACE          reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    IF              reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    WHILE           reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    ID              reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    $end            reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
+    RBRACE          reduce using rule 4 (stmt -> WHILE LPAREN expr RPAREN stmt .)
 
 WARNING: 
 WARNING: Conflicts:

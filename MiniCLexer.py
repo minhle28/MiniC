@@ -4,7 +4,7 @@ import ply.lex as lex
 tokens = (
     'ID',
     'NUM',
-    'OPTR',  
+    'OPTR',
     'LBRACE',
     'RBRACE',
     'LPAREN',
@@ -45,37 +45,10 @@ def t_newline(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'
 
-# Track multiline statements within curly braces
-states = (
-    ('multilinestmt', 'exclusive'),
-)
-
-# Rule for multiline statements
-def t_multilinestmt_LBRACE(t):
-    r'\{'
-    t.lexer.begin('multilinestmt')
-    t.lexer.push_state()
-
-def t_multilinestmt_RBRACE(t):
-    r'\}'
-    t.lexer.pop_state()
-    if t.lexer.current_state() == 'INITIAL':
-        t.lexer.begin('INITIAL')
-    return t
-
-# Ignore whitespace and tabs in the multilinestmt state
-t_multilinestmt_ignore = ' \t'
-
-# Rule for error handling in multilinestmt state
-def t_multilinestmt_error(t):
-    print(f"Illegal character '{t.value[0]}' in multiline statement")
-    t.lexer.skip(1)
-
-# Rule for error handling for unrecognized tokens
+# Rule for error handling
 def t_error(t):
     print(f"Unrecognized character '{t.value[0]}'")
     t.lexer.skip(1)
-
 
 # Build the lexer
 lexer = lex.lex()
