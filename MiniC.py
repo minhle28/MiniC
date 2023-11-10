@@ -24,10 +24,7 @@ while True:
         statements = data.split('\n')
         for statement in statements:
             tree = parser.parse(statement)
-            if isinstance(tree, list) and tree[0] in ['if', 'while']:
-                print(tree)
-            else:
-                print([tree])
+            print(tree)
     except Exception as e:
         print(e)
         continue
