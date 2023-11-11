@@ -3,14 +3,14 @@ from MiniCParser import parser
 def read_input():
     result = ''
     while True:
-        data = input('Mini-C> ').strip()
+        data = input('Mini-C> ')
         if data == 'exit;':
             break
         if data:
-            result += data + '\n'  # Add a newline after each statement
+            result += data + '\n'
         else:
             break
-    return result.strip()
+    return result.rstrip()  
 
 # Main
 while True:
