@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 from MiniCLexer import tokens
 
-# Parsing rules
 def p_program(p):
     'program : stmtlist'
     p[0] = p[1]
@@ -57,7 +56,6 @@ def p_expr_optr(p):
     p[0] = [p[1], ['optr', p[2]], p[3]]
     #print('expr_optr:', p[0])
 
-# Error rule for syntax errors
 def p_error(p):
     if p:
         print(f"Syntax error at token '{p.value}' on line {p.lineno}")
@@ -65,5 +63,4 @@ def p_error(p):
         print("Syntax error: unexpected end of input")
 
 
-# Build the parser
 parser = yacc.yacc()
