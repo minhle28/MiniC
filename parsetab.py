@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ASSIGN ID IF LBRACE LPAREN NUM OPTR RBRACE RPAREN SEMI WHILEprogram : stmtliststmt : LBRACE stmtlist RBRACEstmt : IF LPAREN expr RPAREN stmtstmt : WHILE LPAREN expr RPAREN stmtstmtlist : stmtstmtlist : stmtlist stmtexpr : IDexpr : NUMstmt : ID ASSIGN expr SEMIstmt : ID ASSIGN NUM SEMIexpr : expr OPTR expr'
+_lr_signature = 'ASSIGN ID IF LBRACE LPAREN NUM OPTR RBRACE RPAREN SEMI WHILEprogram : stmtliststmt : ID ASSIGN expr SEMIstmt : LBRACE stmtlist RBRACEstmt : IF LPAREN expr RPAREN stmtstmt : WHILE LPAREN expr RPAREN stmtstmtlist : stmtstmtlist : stmtlist stmtexpr : IDexpr : NUMexpr : expr OPTR expr'
     
-_lr_action_items = {'LBRACE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[4,4,-5,4,-6,4,-2,4,4,-9,-10,-3,-4,]),'IF':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[5,5,-5,5,-6,5,-2,5,5,-9,-10,-3,-4,]),'WHILE':([0,2,3,4,8,9,13,20,22,23,24,25,27,],[6,6,-5,6,-6,6,-2,6,6,-9,-10,-3,-4,]),'ID':([0,2,3,4,8,9,10,11,12,13,20,21,22,23,24,25,27,],[7,7,-5,7,-6,7,15,15,15,-2,7,15,7,-9,-10,-3,-4,]),'$end':([1,2,3,8,13,23,24,25,27,],[0,-1,-5,-6,-2,-9,-10,-3,-4,]),'RBRACE':([3,8,9,13,23,24,25,27,],[-5,-6,13,-2,-9,-10,-3,-4,]),'LPAREN':([5,6,],[10,11,]),'ASSIGN':([7,],[12,]),'NUM':([10,11,12,21,],[16,16,19,16,]),'RPAREN':([14,15,16,17,26,],[20,-7,-8,22,-11,]),'OPTR':([14,15,16,17,18,19,26,],[21,-7,-8,21,21,-8,21,]),'SEMI':([15,16,18,19,26,],[-7,-8,23,24,-11,]),}
+_lr_action_items = {'ID':([0,2,3,5,8,9,10,11,12,16,19,20,21,22,24,25,],[4,4,-6,4,-7,13,4,13,13,-3,-2,13,4,4,-4,-5,]),'LBRACE':([0,2,3,5,8,10,16,19,21,22,24,25,],[5,5,-6,5,-7,5,-3,-2,5,5,-4,-5,]),'IF':([0,2,3,5,8,10,16,19,21,22,24,25,],[6,6,-6,6,-7,6,-3,-2,6,6,-4,-5,]),'WHILE':([0,2,3,5,8,10,16,19,21,22,24,25,],[7,7,-6,7,-7,7,-3,-2,7,7,-4,-5,]),'$end':([1,2,3,8,16,19,24,25,],[0,-1,-6,-7,-3,-2,-4,-5,]),'RBRACE':([3,8,10,16,19,24,25,],[-6,-7,16,-3,-2,-4,-5,]),'ASSIGN':([4,],[9,]),'LPAREN':([6,7,],[11,12,]),'NUM':([9,11,12,20,],[15,15,15,15,]),'SEMI':([13,14,15,23,],[-8,19,-9,-10,]),'OPTR':([13,14,15,17,18,23,],[-8,20,-9,20,20,20,]),'RPAREN':([13,15,17,18,23,],[-8,-9,21,22,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'stmtlist':([0,4,],[2,9,]),'stmt':([0,2,4,9,20,22,],[3,8,3,8,25,27,]),'expr':([10,11,12,21,],[14,17,18,26,]),}
+_lr_goto_items = {'program':([0,],[1,]),'stmtlist':([0,5,],[2,10,]),'stmt':([0,2,5,10,21,22,],[3,8,3,8,24,25,]),'expr':([9,11,12,20,],[14,17,18,23,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,14 +28,13 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
   ('program -> stmtlist','program',1,'p_program','MiniCParser.py',6),
-  ('stmt -> LBRACE stmtlist RBRACE','stmt',3,'p_stmt_block','MiniCParser.py',11),
-  ('stmt -> IF LPAREN expr RPAREN stmt','stmt',5,'p_stmt_if','MiniCParser.py',16),
-  ('stmt -> WHILE LPAREN expr RPAREN stmt','stmt',5,'p_stmt_while','MiniCParser.py',21),
-  ('stmtlist -> stmt','stmtlist',1,'p_stmtlist_single','MiniCParser.py',26),
-  ('stmtlist -> stmtlist stmt','stmtlist',2,'p_stmtlist_multiple','MiniCParser.py',31),
-  ('expr -> ID','expr',1,'p_expr_id','MiniCParser.py',36),
-  ('expr -> NUM','expr',1,'p_expr_num','MiniCParser.py',41),
-  ('stmt -> ID ASSIGN expr SEMI','stmt',4,'p_stmt_expr_semi_assign','MiniCParser.py',46),
-  ('stmt -> ID ASSIGN NUM SEMI','stmt',4,'p_stmt_expr_semi_num','MiniCParser.py',51),
-  ('expr -> expr OPTR expr','expr',3,'p_expr_optr','MiniCParser.py',56),
+  ('stmt -> ID ASSIGN expr SEMI','stmt',4,'p_stmt_expr_semi_assign','MiniCParser.py',11),
+  ('stmt -> LBRACE stmtlist RBRACE','stmt',3,'p_stmt_brace','MiniCParser.py',16),
+  ('stmt -> IF LPAREN expr RPAREN stmt','stmt',5,'p_stmt_if','MiniCParser.py',21),
+  ('stmt -> WHILE LPAREN expr RPAREN stmt','stmt',5,'p_stmt_while','MiniCParser.py',26),
+  ('stmtlist -> stmt','stmtlist',1,'p_stmtlist_single','MiniCParser.py',31),
+  ('stmtlist -> stmtlist stmt','stmtlist',2,'p_stmtlist_multiple','MiniCParser.py',36),
+  ('expr -> ID','expr',1,'p_expr_id','MiniCParser.py',41),
+  ('expr -> NUM','expr',1,'p_expr_num','MiniCParser.py',46),
+  ('expr -> expr OPTR expr','expr',3,'p_expr_optr','MiniCParser.py',51),
 ]
